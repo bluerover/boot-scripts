@@ -438,7 +438,8 @@ copy_rootfs () {
 
 		flush_cache
 		#To properly shudown, /opt/scripts/boot/am335x_evm.sh is going to call halt:
-		exec /sbin/init
+		# exec /sbin/init
+		exec /sbin/poweroff
 	fi
 }
 
