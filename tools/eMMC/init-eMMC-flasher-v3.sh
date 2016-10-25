@@ -439,6 +439,8 @@ copy_rootfs () {
 		flush_cache
 		#To properly shudown, /opt/scripts/boot/am335x_evm.sh is going to call halt:
 		# exec /sbin/init
+		MAC="`hexdump -v -e '1/1 "%02X"' /proc/device-tree/ocp/ethernet@4a100000/slave@4a100200/mac-address`"
+		message="MAC_ADDRESS:${MAC}" ; broadcast
 		exec /sbin/poweroff
 	fi
 }
