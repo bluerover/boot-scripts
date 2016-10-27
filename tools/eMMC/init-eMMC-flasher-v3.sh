@@ -441,7 +441,7 @@ copy_rootfs () {
 		# exec /sbin/init
 		MAC="`hexdump -v -e '1/1 "%02X"' /proc/device-tree/ocp/ethernet@4a100000/slave@4a100200/mac-address`"
 		message="MAC_ADDRESS:${MAC}" ; broadcast
-		exec /sbin/poweroff
+		exec /sbin/poweroff || exec /sbin/halt -fp
 	fi
 }
 
