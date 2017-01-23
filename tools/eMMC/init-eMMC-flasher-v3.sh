@@ -353,7 +353,7 @@ copy_rootfs () {
 	mkdir -p /tmp/rootfs/ || true
 
 	mount ${destination}p${media_rootfs} /tmp/rootfs/ -o async,noatime
-
+	message="CONTINUE_PROGRAMMING" ; broadcast
 	message="rsync: / -> /tmp/rootfs/" ; broadcast
 	rsync -aAx /* /tmp/rootfs/ --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/lib/modules/*,/uEnv.txt} || write_failure
 	flush_cache
@@ -559,6 +559,7 @@ partition_drive () {
 
 sleep 5
 clear
+message="START_PROGRAMMING" ; broadcast
 message="-----------------------------" ; broadcast
 message="Starting eMMC Flasher from microSD media" ; broadcast
 message="Version: [${version_message}]" ; broadcast
