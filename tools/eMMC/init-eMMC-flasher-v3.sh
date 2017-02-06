@@ -353,7 +353,7 @@ copy_rootfs () {
 	mkdir -p /tmp/rootfs/ || true
 
 	mount ${destination}p${media_rootfs} /tmp/rootfs/ -o async,noatime
-	message="CONTINUE_PROGRAMMING" ; broadcast
+	message="PROGRAMMING_50" ; broadcast
 	message="rsync: / -> /tmp/rootfs/" ; broadcast
 	rsync -aAx /* /tmp/rootfs/ --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/lib/modules/*,/uEnv.txt} || write_failure
 	flush_cache
@@ -365,7 +365,7 @@ copy_rootfs () {
 	fi
 
 	mkdir -p /tmp/rootfs/lib/modules/$(uname -r)/ || true
-
+	message="PROGRAMMING_75" ; broadcast
 	message="Copying: Kernel modules" ; broadcast
 	message="rsync: /lib/modules/$(uname -r)/ -> /tmp/rootfs/lib/modules/$(uname -r)/" ; broadcast
 	rsync -aAx /lib/modules/$(uname -r)/* /tmp/rootfs/lib/modules/$(uname -r)/ || write_failure
@@ -506,6 +506,7 @@ partition_drive () {
 		flush_cache
 		format_boot
 		format_root
+		message="PROGRAMMING_25" ; broadcast
 		message="Formatting: ${destination} complete" ; broadcast
 		message="-----------------------------" ; broadcast
 
@@ -549,6 +550,7 @@ partition_drive () {
 
 		flush_cache
 		format_single_root
+                message="PROGRAMMING_25" ; broadcast
 		message="Formatting: ${destination} complete" ; broadcast
 		message="-----------------------------" ; broadcast
 
@@ -559,7 +561,7 @@ partition_drive () {
 
 sleep 5
 clear
-message="START_PROGRAMMING" ; broadcast
+message="PROGRAMMING_0" ; broadcast
 message="-----------------------------" ; broadcast
 message="Starting eMMC Flasher from microSD media" ; broadcast
 message="Version: [${version_message}]" ; broadcast
